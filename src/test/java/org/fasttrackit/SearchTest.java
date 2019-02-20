@@ -1,12 +1,12 @@
 package org.fasttrackit;
 
+import org.fasttrackit.pageobjects.Header;
+import org.fasttrackit.pageobjects.ProductsGrid;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-import java.util.List;
+import org.openqa.selenium.support.PageFactory;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -21,11 +21,14 @@ public class SearchTest {
 
         WebDriver driver = new ChromeDriver();
        driver.get(AppConfig.getSiteUrl());
-String keyword = "vase";
-    driver.findElement(By.id("search")).sendKeys(keyword);
-    driver.findElement(By.tagName("button")).click();
-    List<WebElement> productNameContainers = driver.findElements(By.cssSelector("h2.product-name >a"));
-    for (WebElement container: productNameContainers){
+
+    Header header = PageFactory.initElements(driver,Header.class);
+
+            String keyword = "vase";
+    header.search(keyword);
+
+    ProductsGrid productsGrid = PageFactory.initElements(driver,ProductsGrid.class);
+    for (WebElement container: productsGrid.getProductNameContainers()){
         String productName = container.getText();
 
         assertThat("Some of the product names do not contain the search keyword",productName, containsString(keyword.toUpperCase()));
