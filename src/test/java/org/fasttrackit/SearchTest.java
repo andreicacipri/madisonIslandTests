@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.Keys;
 
 import java.util.List;
 
@@ -18,10 +17,10 @@ public class SearchTest {
 
     public void  searchByOneKeywordTest() {
 
-    System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+    System.setProperty("webdriver.chrome.driver", AppConfig.getChromeDriverPath());
 
         WebDriver driver = new ChromeDriver();
-       driver.get("https://fasttrackit.org/selenium-test/");
+       driver.get(AppConfig.getSiteUrl());
 String keyword = "vase";
     driver.findElement(By.id("search")).sendKeys(keyword);
     driver.findElement(By.tagName("button")).click();

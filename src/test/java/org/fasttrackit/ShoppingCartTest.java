@@ -2,6 +2,7 @@ package org.fasttrackit;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -17,8 +18,8 @@ public class ShoppingCartTest {
         WebDriver driver = new ChromeDriver();
         driver.get("https://fasttrackit.org/selenium-test/");
         String keyword = "vase";
-        driver.findElement(By.id("search")).sendKeys(keyword);
-        driver.findElement(By.tagName("button")).click();
+        driver.findElement(By.className("input-text")).sendKeys(keyword+ Keys.ENTER);
+        System.out.println("Pressed enter in search field. ");
 
         String productToCart ="Herald Glass Vase";
         driver.findElement(By.xpath(
