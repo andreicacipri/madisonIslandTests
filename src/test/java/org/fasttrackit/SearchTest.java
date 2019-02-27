@@ -11,30 +11,26 @@ import org.openqa.selenium.support.PageFactory;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class SearchTest {
+public class SearchTest extends TestBase {
 
-@Test
+    @Test
 
-    public void  searchByOneKeywordTest() {
+    public void searchByOneKeywordTest() {
 
-    System.setProperty("webdriver.chrome.driver", AppConfig.getChromeDriverPath());
 
-        WebDriver driver = new ChromeDriver();
-       driver.get(AppConfig.getSiteUrl());
+        Header header = PageFactory.initElements(driver, Header.class);
 
-    Header header = PageFactory.initElements(driver,Header.class);
+        String keyword = "vase";
+        header.search(keyword);
 
-            String keyword = "vase";
-    header.search(keyword);
+        ProductsGrid productsGrid = PageFactory.initElements(driver, ProductsGrid.class);
+        for (WebElement container : productsGrid.getProductNameContainers()) {
+            String productName = container.getText();
 
-    ProductsGrid productsGrid = PageFactory.initElements(driver,ProductsGrid.class);
-    for (WebElement container: productsGrid.getProductNameContainers()){
-        String productName = container.getText();
+            assertThat("Some of the product names do not contain the search keyword", productName, containsString(keyword.toUpperCase()));
 
-        assertThat("Some of the product names do not contain the search keyword",productName, containsString(keyword.toUpperCase()));
-
-    }
+        }
     }
 
-    }
+}
 
