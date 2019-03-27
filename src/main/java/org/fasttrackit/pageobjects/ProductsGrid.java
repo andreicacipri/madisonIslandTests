@@ -20,7 +20,8 @@ public class ProductsGrid {
     @FindBy (xpath = "//span[@class='price' and ./parent::*[not(contains(@class, 'old-price'))]]")
     private List<WebElement> actualProductPriceContainers;
 
-
+    @FindBy(xpath = "//div[@class='product-info' and .//button[@title='Add to Cart']]//h2[@class='product-name']/a")
+    private List<WebElement> addToCartProductNameContainers;
 
 
     public List<WebElement> getProductNameContainers() {
@@ -37,6 +38,12 @@ public class ProductsGrid {
         }
        return names;
     }
+
+    public List<WebElement> getAddToCartProductNameContainers() {
+        return addToCartProductNameContainers;
+    }
+
+
 
 
     public WebElement getAddToCartButton(String productName, WebDriver driver) {
