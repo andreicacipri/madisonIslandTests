@@ -8,21 +8,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestBase {
 
-    protected WebDriver driver;
+    protected WebDriver driver= DriverManager.getDriver();
 
-    @Before
-    public void setup() {
-        String browser = System.getProperty("browser", "chrome");
-        driver = DriverManager.initDriver(browser);
-        driver.get(AppConfig.getSiteUrl());
-        System.out.println("Opened homepage");
-    }
-
-    @After
-    public void tearDown() throws InterruptedException {
-        Thread.sleep(500);
-        driver.quit();
-    }
 
     public void waitForPageToLoad(long timeoutMillis) {
         do {
